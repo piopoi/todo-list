@@ -27,11 +27,18 @@ function App() {
     });
   };
 
+  const deleteTodo = (targetId) => {
+    dispatch({
+      type: "DELETE",
+      targetId: targetId,
+    });
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor createTodo={createTodo} />
-      <List todos={todos} updateTodo={updateTodo} />
+      <List todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
     </div>
   );
 }
@@ -50,7 +57,7 @@ function reducer(todos, action) {
         return { ...todo, isDone: !todo.isDone };
       });
     case "DELETE":
-      return [...todos];
+      return todos.filter((todo) => todo.id !== action.targetId);
   }
 }
 

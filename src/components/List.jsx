@@ -2,7 +2,7 @@ import "./List.css";
 import { useState } from "react";
 import Todo from "./Todo";
 
-const List = ({ todos, updateTodo }) => {
+const List = ({ todos, updateTodo, deleteTodo }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const onChangeSearchKeyword = (e) => {
@@ -20,7 +20,14 @@ const List = ({ todos, updateTodo }) => {
         .filter((todo) => todo.content.toLowerCase().includes(searchKeyword))
         .sort((a, b) => b.id - a.id)
         .map((todo) => {
-          return <Todo key={todo.id} {...todo} updateTodo={updateTodo} />;
+          return (
+            <Todo
+              key={todo.id}
+              {...todo}
+              updateTodo={updateTodo}
+              deleteTodo={deleteTodo}
+            />
+          );
         })}
     </div>
   );
