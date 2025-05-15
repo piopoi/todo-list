@@ -20,11 +20,18 @@ function App() {
     });
   };
 
+  const updateTodo = (targetId) => {
+    dispatch({
+      type: "UPDATE",
+      targetId: targetId,
+    });
+  };
+
   return (
     <div className="App">
       <Header />
       <Editor createTodo={createTodo} />
-      <List todos={todos} />
+      <List todos={todos} updateTodo={updateTodo} />
     </div>
   );
 }
@@ -36,7 +43,12 @@ function reducer(todos, action) {
     case "CREATE":
       return [...todos, action.newTodo];
     case "UPDATE":
-      return [...todos];
+      return todos.map((todo) => {
+        if (todo.id !== action.targetId) {
+          return todo;
+        }
+        return { ...todo, isDone: !todo.isDone };
+      });
     case "DELETE":
       return [...todos];
   }
