@@ -11,7 +11,7 @@ const Editor = ({ createTodo }) => {
 
   const onKeyDownContent = (e) => {
     if (e.keyCode === 13) {
-      onSubmit(content);
+      onSubmit();
     }
   };
 
